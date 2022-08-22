@@ -10,7 +10,7 @@ import UIKit
 class PokemonViewController: UIViewController {
     
     @IBOutlet weak var tableViewOutlet: UITableView!
-    var pokey: [Card] = []
+    var pokemonCard: [Card] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +43,7 @@ class PokemonViewController: UIViewController {
             do{
                 let jsonData = try JSONDecoder().decode(Pokemon.self, from: data)
                                 print("jsonData: ", jsonData)
-                                self.pokey = jsonData.cards
+                                self.pokemonCard = jsonData.cards
                                 DispatchQueue.main.async {
                                     self.tableViewOutlet.reloadData()
                 }
@@ -60,7 +60,7 @@ class PokemonViewController: UIViewController {
         if let indexPath = tableViewOutlet.indexPathForSelectedRow{
             print("indexPath: ", indexPath)
             guard let detailVC = segue.destination as? PokemonDetailViewController else {return}
-            detailVC.Pokey = Array(pokey[indexPath.row])
+            detailVC.pokeyCard = Array(pokemonCard[indexPath.row])
 
 
         }
@@ -73,13 +73,13 @@ class PokemonViewController: UIViewController {
 
 extension PokemonViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pokey.count
+        return pokemonCard.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PokeyTableViewCell", for: indexPath) as? PokeyTableViewCell else {return UITableViewCell()}
         
-        let pok = pokey[indexPath.row]
+        let pok = pokemonCard[indexPath.row]
         cell.setupUI(withDataFrom: pok)
         
         return cell

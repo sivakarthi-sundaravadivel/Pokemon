@@ -9,7 +9,7 @@ import UIKit
 
 class PokemonDetailViewController: UIViewController {
     
-    var Pokey: PokeyTableViewCell?
+    var pokeyCard: PokeyTableViewCell?
     
     @IBOutlet var pokemonName: UILabel!
     @IBOutlet var pokemonSuperType: UILabel!
